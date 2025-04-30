@@ -14,3 +14,13 @@ def dividir(a, b):
 
 def sumar_diez(a):
     return a + 10
+
+def multiplicar_lista(numeros):
+    """
+    Multiplica todos los números de la lista.
+    Ejemplo: multiplicar_lista([2, 3, 4]) -> 24
+    """
+    resultado = 1
+    for numero in numeros:
+        resultado *= numero
+    return resultado
