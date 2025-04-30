@@ -11,3 +11,6 @@ def dividir(a, b):
     if b == 0:
         raise ValueError("No se puede dividir entre cero")
     return a / b
+
+def sumar_diez(a):
+    return a + 10
