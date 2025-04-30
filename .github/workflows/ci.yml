@@ -1,0 +1,43 @@
+name: Python CI with SonarCloud
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
+
+      - name: Run Tests and Coverage
+        run: |
+          pytest tests --cov=calculadora/operaciones --cov-report=xml
+
+      - name: Show test collection & coverage.xml
+        run: |
+          pytest --collect-only
+          ls -R .
+
+      - name: List generated files
+        run: ls -la
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarqube-scan-action@v2.0.2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
