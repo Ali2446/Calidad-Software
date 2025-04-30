@@ -24,6 +24,9 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pytest-cov
 
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
+
       - name: Run Tests and Coverage
         run: |
           pytest tests --cov=calculadora/operaciones --cov-report=xml
